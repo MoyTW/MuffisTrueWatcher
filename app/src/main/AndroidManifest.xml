@@ -28,6 +28,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mtw.muffistruewatcher.MainActivity" />
         </activity>
+        <activity
+            android:name=".ChecklistBuilder"
+            android:label="@string/title_activity_checklist_builder"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mtw.muffistruewatcher.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

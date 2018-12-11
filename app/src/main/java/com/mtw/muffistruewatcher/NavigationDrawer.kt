@@ -14,7 +14,10 @@ fun onNavigationItemSelected(packageContext: Context, drawerLayout: DrawerLayout
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             packageContext.startActivity(intent)
         }
-        R.id.nav_manage -> {
+        R.id.nav_checklist_builder -> {
+            val intent = Intent(packageContext, ChecklistBuilder::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            packageContext.startActivity(intent)
 
         }
         R.id.nav_send -> {

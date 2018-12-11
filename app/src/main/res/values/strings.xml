@@ -8,4 +8,6 @@
     <string name="action_settings">Settings</string>
     <string name="menu_food_diary">Food Diary</string>
     <string name="title_activity_food_diary">Food Diary</string>
+    <string name="title_activity_checklist_builder">ChecklistBuilder</string>
+    <string name="menu_checklist_builder">Checklist Builder</string>
 </resources>
