@@ -8,11 +8,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProviders
+import com.mtw.muffistruewatcher.HandInjection
 import com.mtw.muffistruewatcher.R
 import kotlinx.android.synthetic.main.activity_food_diary.*
 import kotlinx.android.synthetic.main.app_bar_food_diary.*
 
 class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var viewModel: FoodDiaryEntryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,9 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        viewModelFactory = HandInjection.provideViewModelFactory(this)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(FoodDiaryEntryViewModel::class.java)
     }
 
     override fun onBackPressed() {

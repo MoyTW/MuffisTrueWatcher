@@ -9,8 +9,11 @@ import io.reactivex.Flowable
 @Dao
 interface FoodDiaryEntryDao {
 
+    @Query("SELECT * FROM food_diary_entries ORDER BY id ASC")
+    fun fetchAllEntries(): Flowable<List<FoodDiaryEntry>>
+
     @Query("SELECT * FROM food_diary_entries WHERE id = :id")
-    fun getEntryById(id: String): Flowable<FoodDiaryEntry>
+    fun fetchEntryById(id: String): Flowable<FoodDiaryEntry>
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
     fun insertEntry(entry: FoodDiaryEntry)
