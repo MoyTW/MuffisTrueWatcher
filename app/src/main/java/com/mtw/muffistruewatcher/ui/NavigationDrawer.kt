@@ -1,10 +1,11 @@
-package com.mtw.muffistruewatcher
+package com.mtw.muffistruewatcher.ui
 
 import android.content.Context
 import android.content.Intent
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.view.MenuItem
+import com.mtw.muffistruewatcher.R
 
 fun onNavigationItemSelected(packageContext: Context, drawerLayout: DrawerLayout, item: MenuItem): Boolean {
     // Handle navigation view item clicks here.

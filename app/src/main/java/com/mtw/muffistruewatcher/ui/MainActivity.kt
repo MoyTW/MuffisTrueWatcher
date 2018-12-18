@@ -1,4 +1,4 @@
-package com.mtw.muffistruewatcher
+package com.mtw.muffistruewatcher.ui
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -8,14 +8,15 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_checklist_builder.*
-import kotlinx.android.synthetic.main.app_bar_checklist_builder.*
+import com.mtw.muffistruewatcher.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class ChecklistBuilder : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_checklist_builder)
+        setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -24,7 +25,9 @@ class ChecklistBuilder : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
@@ -42,7 +45,7 @@ class ChecklistBuilder : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.checklist_builder, menu)
+        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
@@ -57,6 +60,6 @@ class ChecklistBuilder : AppCompatActivity(), NavigationView.OnNavigationItemSel
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return com.mtw.muffistruewatcher.onNavigationItemSelected(this, drawer_layout, item)
+        return onNavigationItemSelected(this, drawer_layout, item)
     }
 }

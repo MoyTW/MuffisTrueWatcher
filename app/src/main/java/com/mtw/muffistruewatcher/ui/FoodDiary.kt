@@ -1,4 +1,4 @@
-package com.mtw.muffistruewatcher
+package com.mtw.muffistruewatcher.ui
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.mtw.muffistruewatcher.R
 import kotlinx.android.synthetic.main.activity_food_diary.*
 import kotlinx.android.synthetic.main.app_bar_food_diary.*
 
@@ -24,7 +25,9 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         }
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
@@ -57,6 +60,6 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return com.mtw.muffistruewatcher.onNavigationItemSelected(this, drawer_layout, item)
+        return onNavigationItemSelected(this, drawer_layout, item)
     }
 }
