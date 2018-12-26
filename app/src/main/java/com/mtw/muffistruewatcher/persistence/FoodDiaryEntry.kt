@@ -2,15 +2,17 @@ package com.mtw.muffistruewatcher.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.time.LocalDateTime
 import java.util.*
 
-@Entity(tableName = "food_diary_entries")
+@Entity(tableName = "food_diary_entries",
+    indices = arrayOf(Index("created_date")))
 data class FoodDiaryEntry(
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: String = UUID.randomUUID().toString(),
-
-    @ColumnInfo(name = "description")
-    val description: String
+    @PrimaryKey val id: String = UUID.randomUUID().toString(),
+    val description: String,
+    @ColumnInfo(name = "eaten_date") val eatenDate: LocalDateTime,
+    @ColumnInfo(name = "created_date") val createdDate: LocalDateTime = LocalDateTime.now(),
+    @ColumnInfo(name = "updated_date") val updatedDate: LocalDateTime = LocalDateTime.now()
 )

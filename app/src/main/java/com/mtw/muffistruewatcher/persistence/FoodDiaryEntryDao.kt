@@ -9,7 +9,7 @@ import io.reactivex.Flowable
 @Dao
 interface FoodDiaryEntryDao {
 
-    @Query("SELECT * FROM food_diary_entries ORDER BY id ASC")
+    @Query("SELECT * FROM food_diary_entries ORDER BY eaten_date DESC")
     fun fetchAllEntries(): Flowable<List<FoodDiaryEntry>>
 
     @Query("SELECT * FROM food_diary_entries WHERE id = :id")
