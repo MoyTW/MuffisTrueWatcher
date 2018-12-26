@@ -37,7 +37,7 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         setContentView(R.layout.activity_food_diary)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { _ ->
             val intent = Intent(this, FoodDiaryAddEntryActivity::class.java)
             startActivityForResult(intent, FOOD_DIARY_ADD_ENTRY_REQUEST_CODE)
         }
@@ -105,9 +105,7 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { if (it != null) {
-                    val adapter = FoodDiaryEntryListAdapter(this)
-                    adapter.setEntries(it)
-                    recyclerview.adapter = adapter
+                    (recyclerview.adapter as FoodDiaryEntryListAdapter).setEntries(it)
                 } },
                 { error -> Log.e(TAG, "Unable to get username", error) })
         )
