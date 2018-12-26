@@ -55,7 +55,7 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = FoodDiaryEntryListAdapter(this)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
 
         viewModelFactory = HandInjection.provideViewModelFactory(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(FoodDiaryEntryViewModel::class.java)

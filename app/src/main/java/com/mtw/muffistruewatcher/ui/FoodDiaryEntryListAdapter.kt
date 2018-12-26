@@ -9,19 +9,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mtw.muffistruewatcher.R
 import com.mtw.muffistruewatcher.persistence.FoodDiaryEntry
+import java.time.format.DateTimeFormatter
 
 
 class FoodDiaryEntryListAdapter(context: Context): RecyclerView.Adapter<FoodDiaryEntryListAdapter.FoodDiaryEntryHolder>() {
 
+    private val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
     private val inflater: LayoutInflater
     private var foodDiaryEntries: List<FoodDiaryEntry>? = null
 
     inner class FoodDiaryEntryHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val entryView: TextView
+        internal val entryView: TextView = itemView.findViewById(R.id.text_description)
+        internal val dateView: TextView = itemView.findViewById(R.id.text_date)
 
-        init {
-            entryView = itemView.findViewById(R.id.textView)
-        }
     }
 
     init {
@@ -37,6 +37,7 @@ class FoodDiaryEntryListAdapter(context: Context): RecyclerView.Adapter<FoodDiar
         if (foodDiaryEntries != null) {
             val current = foodDiaryEntries!![position]
             holder.entryView.text = current.description
+            holder.dateView.text = current.eatenDate.format(dateTimeFormatter)
         } else {
             // Covers the case of data not being ready yet.
             holder.entryView.text = "No Entries Yet"
