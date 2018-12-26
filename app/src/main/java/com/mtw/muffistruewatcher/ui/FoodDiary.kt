@@ -1,7 +1,9 @@
 package com.mtw.muffistruewatcher.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.util.Log
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -9,16 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mtw.muffistruewatcher.HandInjection
 import com.mtw.muffistruewatcher.R
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_food_diary.*
 import kotlinx.android.synthetic.main.app_bar_food_diary.*
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.content_food_diary.*
+
 
 class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var viewModelFactory: ViewModelFactory
+    private val FOOD_DIARY_ADD_ENTRY_REQUEST_CODE = 1
 
+    private lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: FoodDiaryEntryViewModel
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +38,8 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val intent = Intent(this, FoodDiaryAddEntryActivity::class.java)
+            startActivityForResult(intent, FOOD_DIARY_ADD_ENTRY_REQUEST_CODE)
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -39,6 +51,11 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = FoodDiaryEntryListAdapter(this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         viewModelFactory = HandInjection.provideViewModelFactory(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(FoodDiaryEntryViewModel::class.java)
@@ -70,5 +87,41 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return onNavigationItemSelected(this, drawer_layout, item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == FOOD_DIARY_ADD_ENTRY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            viewModel.insert(data!!.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_REPLY))
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        compositeDisposable.add(viewModel.foodDiaryEntries()
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { if (it != null) {
+                    val adapter = FoodDiaryEntryListAdapter(this)
+                    adapter.setEntries(it)
+                    recyclerview.adapter = adapter
+                } },
+                { error -> Log.e(TAG, "Unable to get username", error) })
+        )
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        if (!compositeDisposable.isDisposed) {
+            compositeDisposable.clear()
+        }
+    }
+
+    companion object {
+        private val TAG = FoodDiary::class.java.simpleName
     }
 }
