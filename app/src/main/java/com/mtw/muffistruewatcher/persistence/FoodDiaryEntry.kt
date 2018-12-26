@@ -8,10 +8,11 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Entity(tableName = "food_diary_entries",
-    indices = arrayOf(Index("created_date")))
+    indices = arrayOf(Index("eaten_date")))
 data class FoodDiaryEntry(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
-    val description: String,
+    val name: String,
+    val commentary: String,
     @ColumnInfo(name = "eaten_date") val eatenDate: LocalDateTime,
     @ColumnInfo(name = "created_date") val createdDate: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = "updated_date") val updatedDate: LocalDateTime = LocalDateTime.now()

@@ -37,7 +37,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mtw.muffistruewatcher.ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.FoodDiaryAddEntryActivity"></activity>
+        <activity
+            android:name=".ui.FoodDiaryAddEntryActivity"
+            android:windowSoftInputMode="stateVisible"></activity>
     </application>
 
 </manifest>

@@ -36,7 +36,7 @@ class FoodDiaryEntryListAdapter(context: Context): RecyclerView.Adapter<FoodDiar
     override fun onBindViewHolder(holder: FoodDiaryEntryHolder, position: Int) {
         if (foodDiaryEntries != null) {
             val current = foodDiaryEntries!![position]
-            holder.entryView.text = current.description
+            holder.entryView.text = current.commentary
             holder.dateView.text = current.eatenDate.format(dateTimeFormatter)
         } else {
             // Covers the case of data not being ready yet.

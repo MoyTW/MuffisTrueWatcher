@@ -10,4 +10,5 @@
     <string name="title_activity_food_diary">Food Diary</string>
     <string name="title_activity_checklist_builder">ChecklistBuilder</string>
     <string name="menu_checklist_builder">Checklist Builder</string>
+    <string name="text_name_food_diary_add_entry">Name</string>
 </resources>

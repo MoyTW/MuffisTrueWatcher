@@ -93,7 +93,7 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == FOOD_DIARY_ADD_ENTRY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            viewModel.insert(data!!.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_REPLY))
+            viewModel.insert(data!!.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_REPLY), "FIXME")
         }
     }
 
