@@ -12,11 +12,13 @@ import com.mtw.muffistruewatcher.R
 class FoodDiaryAddEntryActivity : AppCompatActivity() {
 
     private var editEntryView: EditText? = null
+    private var editCommentaryView: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_diary_add_entry)
         editEntryView = findViewById(R.id.food_diary_add_entry_edit)
+        editCommentaryView = findViewById(R.id.text_food_diary_add_entry_commentary)
 
         val button = findViewById<Button>(R.id.food_diary_add_entry_save)
         button.setOnClickListener {
@@ -24,8 +26,8 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(editEntryView!!.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val word = editEntryView!!.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, word)
+                replyIntent.putExtra(EXTRA_NAME, editEntryView!!.text.toString())
+                replyIntent.putExtra(EXTRA_COMMENTARY, editCommentaryView!!.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -33,6 +35,7 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
     }
 
     companion object {
-        val EXTRA_REPLY = "com.mtw.muffistruewatcher.ui.FoodDiaryAddEntryActivity.REPLY"
+        val EXTRA_NAME = "com.mtw.muffistruewatcher.ui.FoodDiaryAddEntryActivity.NAME"
+        val EXTRA_COMMENTARY = "com.mtw.muffistruewatcher.ui.FoodDiaryAddEntryActivity.COMMENTARY"
     }
 }

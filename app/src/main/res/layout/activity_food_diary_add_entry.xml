@@ -63,7 +63,7 @@
             android:text="Commentary" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/text_food_diary_add_entry_commentary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
