@@ -13,6 +13,7 @@ data class FoodDiaryEntry(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val name: String,
     val commentary: String,
+    val points: Int,
     @ColumnInfo(name = "eaten_date") val eatenDate: LocalDateTime,
     @ColumnInfo(name = "created_date") val createdDate: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = "updated_date") val updatedDate: LocalDateTime = LocalDateTime.now()

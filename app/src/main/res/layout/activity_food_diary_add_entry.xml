@@ -6,20 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.fooddiary.FoodDiaryAddEntryActivity">
 
-    <EditText
-        android:id="@+id/food_diary_add_entry_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter The Thing!"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_name_food_diary_add_entry"
-        app:layout_constraintTop_toTopOf="parent">
-        <requestFocus />
-    </EditText>
-
     <TextView
-        android:id="@+id/text_name_food_diary_add_entry"
+        android:id="@+id/label_name_food_diary_add_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -28,10 +16,44 @@
         android:layout_marginBottom="8dp"
         android:text="@string/text_name_food_diary_add_entry"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/food_diary_add_entry_edit"
-        app:layout_constraintEnd_toStartOf="@+id/food_diary_add_entry_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/text_food_diary_add_entry_name"
+        app:layout_constraintEnd_toStartOf="@+id/text_food_diary_add_entry_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/food_diary_add_entry_edit" />
+        app:layout_constraintTop_toTopOf="@+id/text_food_diary_add_entry_name" />
+
+    <EditText
+        android:id="@+id/text_food_diary_add_entry_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/label_name_food_diary_add_entry"
+        app:layout_constraintTop_toTopOf="parent">
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/label_food_diary_add_entry_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Points"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_food_diary_add_entry_points"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_food_diary_add_entry_points" />
+
+    <EditText
+        android:id="@+id/text_food_diary_add_entry_points"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/label_food_diary_add_entry_points"
+        app:layout_constraintTop_toBottomOf="@+id/text_food_diary_add_entry_name" />
 
     <Button
         android:id="@+id/food_diary_add_entry_save"
@@ -52,15 +74,15 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/food_diary_add_entry_edit">
+        app:layout_constraintTop_toBottomOf="@+id/text_food_diary_add_entry_points">
 
         <TextView
             android:id="@+id/label_food_diary_add_entry_commentary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:gravity="center_horizontal"
-            android:text="Commentary" />
+            android:text="Commentary"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/text_food_diary_add_entry_commentary"
@@ -68,7 +90,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textCapSentences|textMultiLine"
-            android:maxLines="4"/>
+            android:maxLines="4" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

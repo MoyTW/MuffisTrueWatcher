@@ -19,6 +19,7 @@ class FoodDiaryEntryListAdapter(context: Context): RecyclerView.Adapter<FoodDiar
 
     inner class FoodDiaryEntryHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val nameView: TextView = itemView.findViewById(R.id.label_rv_itm_fd_name)
+        internal val pointsView: TextView = itemView.findViewById(R.id.label_rv_itm_fd_points)
         internal val dateView: TextView = itemView.findViewById(R.id.label_rv_itm_fd_date)
         internal val commentaryLabel: TextView = itemView.findViewById(R.id.label_rv_itm_fd_commentary)
     }
@@ -32,6 +33,7 @@ class FoodDiaryEntryListAdapter(context: Context): RecyclerView.Adapter<FoodDiar
         if (foodDiaryEntries != null) {
             val current = foodDiaryEntries!![position]
             holder.nameView.text = current.name
+            holder.pointsView.text = current.points.toString()
             holder.dateView.text = current.eatenDate.format(dateTimeFormatter)
             holder.commentaryLabel.text = current.commentary
         } else {

@@ -19,7 +19,7 @@ class Converters {
 }
 
 @Database(
-    version = 3,
+    version = 4,
     entities = arrayOf(FoodDiaryEntry::class)
 )
 @TypeConverters(Converters::class)

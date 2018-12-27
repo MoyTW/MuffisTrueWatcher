@@ -12,11 +12,12 @@ class FoodDiaryEntryViewModel(private val localRepository: LocalRepository): Vie
         return localRepository.fetchFoodDiaryEntries()
     }
 
-    fun insert(name: String, description: String) {
+    fun insert(name: String, description: String, points: Int) {
         localRepository.insertFoodDiaryEntry(
             FoodDiaryEntry(
                 name = name,
                 commentary = description,
+                points = points,
                 eatenDate = LocalDateTime.now()
             )
         )

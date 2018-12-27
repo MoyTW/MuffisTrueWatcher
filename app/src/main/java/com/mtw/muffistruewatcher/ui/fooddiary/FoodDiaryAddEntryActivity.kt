@@ -13,12 +13,14 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
 
     private var editEntryView: EditText? = null
     private var editCommentaryView: EditText? = null
+    private var editPointsView: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_diary_add_entry)
-        editEntryView = findViewById(R.id.food_diary_add_entry_edit)
+        editEntryView = findViewById(R.id.text_food_diary_add_entry_name)
         editCommentaryView = findViewById(R.id.text_food_diary_add_entry_commentary)
+        editPointsView = findViewById(R.id.text_food_diary_add_entry_points)
 
         val button = findViewById<Button>(R.id.food_diary_add_entry_save)
         button.setOnClickListener {
@@ -28,6 +30,7 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
             } else {
                 replyIntent.putExtra(EXTRA_NAME, editEntryView!!.text.toString())
                 replyIntent.putExtra(EXTRA_COMMENTARY, editCommentaryView!!.text.toString())
+                replyIntent.putExtra(EXTRA_POINTS, Integer.parseInt(editPointsView!!.text.toString()))
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -37,5 +40,6 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
     companion object {
         val EXTRA_NAME = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.NAME"
         val EXTRA_COMMENTARY = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.COMMENTARY"
+        val EXTRA_POINTS = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.POINTS"
     }
 }

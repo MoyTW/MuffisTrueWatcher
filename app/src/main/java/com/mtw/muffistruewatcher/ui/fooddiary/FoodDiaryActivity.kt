@@ -95,7 +95,8 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         if (requestCode == FOOD_DIARY_ADD_ENTRY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             viewModel.insert(data!!.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_NAME),
-                data.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_COMMENTARY))
+                data.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_COMMENTARY),
+                data.getIntExtra(FoodDiaryAddEntryActivity.EXTRA_POINTS, 9999))
         }
     }
 
