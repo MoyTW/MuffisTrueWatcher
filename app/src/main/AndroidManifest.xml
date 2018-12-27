@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.FoodDiary"
+            android:name=".ui.fooddiary.FoodDiaryActivity"
             android:label="@string/title_activity_food_diary"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -38,7 +38,7 @@
                 android:value="com.mtw.muffistruewatcher.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.FoodDiaryAddEntryActivity"
+            android:name=".ui.fooddiary.FoodDiaryAddEntryActivity"
             android:windowSoftInputMode="stateVisible"></activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.mtw.muffistruewatcher.ui
+package com.mtw.muffistruewatcher.ui.fooddiary
 
 import androidx.lifecycle.ViewModel
 import com.mtw.muffistruewatcher.persistence.FoodDiaryEntry

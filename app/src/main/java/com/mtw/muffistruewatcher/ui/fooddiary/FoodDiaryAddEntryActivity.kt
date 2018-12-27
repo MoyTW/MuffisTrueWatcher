@@ -1,4 +1,4 @@
-package com.mtw.muffistruewatcher.ui
+package com.mtw.muffistruewatcher.ui.fooddiary
 
 import android.app.Activity
 import android.content.Intent
@@ -35,7 +35,7 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
     }
 
     companion object {
-        val EXTRA_NAME = "com.mtw.muffistruewatcher.ui.FoodDiaryAddEntryActivity.NAME"
-        val EXTRA_COMMENTARY = "com.mtw.muffistruewatcher.ui.FoodDiaryAddEntryActivity.COMMENTARY"
+        val EXTRA_NAME = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.NAME"
+        val EXTRA_COMMENTARY = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.COMMENTARY"
     }
 }

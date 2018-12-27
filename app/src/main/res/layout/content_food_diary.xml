@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.FoodDiary"
+    tools:context=".ui.fooddiary.FoodDiaryActivity"
     tools:showIn="@layout/app_bar_food_diary">
 
     <androidx.recyclerview.widget.RecyclerView

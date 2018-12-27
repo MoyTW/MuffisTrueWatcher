@@ -1,4 +1,4 @@
-package com.mtw.muffistruewatcher.ui
+package com.mtw.muffistruewatcher.ui.fooddiary
 
 import android.app.Activity
 import android.content.Intent
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtw.muffistruewatcher.HandInjection
 import com.mtw.muffistruewatcher.R
+import com.mtw.muffistruewatcher.ui.ViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_food_diary.*
 import kotlinx.android.synthetic.main.app_bar_food_diary.*
@@ -23,7 +24,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_food_diary.*
 
 
-class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val FOOD_DIARY_ADD_ENTRY_REQUEST_CODE = 1
 
@@ -86,7 +87,7 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return onNavigationItemSelected(this, drawer_layout, item)
+        return com.mtw.muffistruewatcher.ui.onNavigationItemSelected(this, drawer_layout, item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -121,6 +122,6 @@ class FoodDiary : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     companion object {
-        private val TAG = FoodDiary::class.java.simpleName
+        private val TAG = FoodDiaryActivity::class.java.simpleName
     }
 }

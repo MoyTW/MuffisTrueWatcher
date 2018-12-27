@@ -3,6 +3,7 @@ package com.mtw.muffistruewatcher.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mtw.muffistruewatcher.persistence.LocalRepository
+import com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryEntryViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(private val localRepository: LocalRepository): ViewModelProvider.Factory {

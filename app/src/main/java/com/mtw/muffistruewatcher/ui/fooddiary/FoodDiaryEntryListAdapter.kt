@@ -1,4 +1,4 @@
-package com.mtw.muffistruewatcher.ui
+package com.mtw.muffistruewatcher.ui.fooddiary
 
 import android.content.Context
 import android.view.LayoutInflater
