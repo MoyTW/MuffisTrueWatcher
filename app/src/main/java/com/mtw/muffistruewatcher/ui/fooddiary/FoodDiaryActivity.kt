@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -54,7 +55,11 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         nav_view.setNavigationItemSelectedListener(this)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = FoodDiaryEntryListAdapter(this)
+        val adapter = FoodDiaryEntryListAdapter(
+            this,
+            View.OnClickListener { System.out.println("ON EDIT CLICK") },
+            View.OnClickListener { System.out.println("ON COPY CLICK") },
+            View.OnClickListener { System.out.println("ON DELETE CLICK") })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
 
