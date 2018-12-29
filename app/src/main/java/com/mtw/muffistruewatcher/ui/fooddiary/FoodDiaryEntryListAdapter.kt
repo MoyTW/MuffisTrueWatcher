@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
 class FoodDiaryEntryListAdapter(
     context: Context,
     private val onEditClickListener: (entry: FoodDiaryEntry) -> Unit,
-    private val onCopyClickListener: View.OnClickListener,
+    private val onCopyClickListener: (entry: FoodDiaryEntry) -> Unit,
     private val onDeleteClickListener: (entry: FoodDiaryEntry) -> Unit
 ) : RecyclerView.Adapter<FoodDiaryEntryListAdapter.FoodDiaryEntryHolder>() {
 
@@ -51,7 +51,7 @@ class FoodDiaryEntryListAdapter(
 
             // Set the onClick listeners
             holder.layoutView.setOnClickListener{ onEditClickListener(current) }
-            holder.copyButton.setOnClickListener(onCopyClickListener)
+            holder.copyButton.setOnClickListener{ onCopyClickListener(current) }
             holder.deleteButton.setOnClickListener{ onDeleteClickListener(current) }
         } else {
             // Covers the case of data not being ready yet.

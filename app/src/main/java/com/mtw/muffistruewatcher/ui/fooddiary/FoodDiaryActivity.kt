@@ -26,6 +26,8 @@ import kotlinx.android.synthetic.main.app_bar_food_diary.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_food_diary.*
+import java.time.LocalDateTime
+import java.util.*
 
 
 class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -67,7 +69,17 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 intent.putExtra(EXTRA_DIARY_ENTRY, it)
                 startActivityForResult(intent, FOOD_DIARY_EDIT_ENTRY_REQUEST_CODE)
             },
-            View.OnClickListener { System.out.println("ON COPY CLICK") },
+            {
+                val now = LocalDateTime.now()
+                viewModel.insert(
+                    it.copy(
+                        id = UUID.randomUUID().toString(),
+                        eatenDate = now,
+                        createdDate = now,
+                        updatedDate = now
+                    )
+                )
+            },
             {
                 AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
