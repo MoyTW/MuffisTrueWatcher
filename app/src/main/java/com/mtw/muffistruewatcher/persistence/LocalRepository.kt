@@ -25,4 +25,18 @@ class LocalRepository internal constructor(context: Context) {
             return null
         }
     }
+
+    fun updateFoodDiaryEntry(foodDiaryEntry: FoodDiaryEntry) {
+        UpdateAsyncTask(foodDiaryEntryDao).execute(foodDiaryEntry)
+    }
+
+    // Awkward, but for now I'll keep the pattern. If I have a third one I'll consider simplification.
+    private class UpdateAsyncTask internal constructor(private val mAsyncTaskDao: FoodDiaryEntryDao) :
+        AsyncTask<FoodDiaryEntry, Void, Void>() {
+
+        override fun doInBackground(vararg params: FoodDiaryEntry): Void? {
+            mAsyncTaskDao.updateEntry(params[0])
+            return null
+        }
+    }
 }

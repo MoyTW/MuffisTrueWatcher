@@ -1,9 +1,6 @@
 package com.mtw.muffistruewatcher.persistence
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import io.reactivex.Flowable
 
 @Dao
@@ -17,6 +14,9 @@ interface FoodDiaryEntryDao {
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
     fun insertEntry(entry: FoodDiaryEntry)
+
+    @Update
+    fun updateEntry(entry: FoodDiaryEntry)
 
     @Query("DELETE FROM food_diary_entries WHERE id = :id")
     fun deleteEntry(id: String)
