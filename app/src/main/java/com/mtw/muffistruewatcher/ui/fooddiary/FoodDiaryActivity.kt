@@ -1,6 +1,8 @@
 package com.mtw.muffistruewatcher.ui.fooddiary
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -56,6 +58,7 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         nav_view.setNavigationItemSelectedListener(this)
 
+        // This is awkward to just all splat here, frankly.
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = FoodDiaryEntryListAdapter(
             this,
@@ -65,7 +68,16 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivityForResult(intent, FOOD_DIARY_EDIT_ENTRY_REQUEST_CODE)
             },
             View.OnClickListener { System.out.println("ON COPY CLICK") },
-            View.OnClickListener { System.out.println("ON DELETE CLICK") })
+            {
+                AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Really delete this entry?")
+                    .setMessage("Deletion is final! Once you delete this entry there's no way to get it back!")
+                    .setPositiveButton("DELETE") { _, _ -> viewModel.delete(it) }
+                    .setNegativeButton("CANCEL", null)
+                    .create()
+                    .show()
+            })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
 

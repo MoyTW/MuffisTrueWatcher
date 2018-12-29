@@ -13,30 +13,24 @@ class LocalRepository internal constructor(context: Context) {
         return foodDiaryEntryDao.fetchAllEntries()
     }
 
-    fun insertFoodDiaryEntry(foodDiaryEntry: FoodDiaryEntry) {
-        InsertAsyncTask(foodDiaryEntryDao).execute(foodDiaryEntry)
-    }
-
-    private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: FoodDiaryEntryDao) :
+    private class FoodDiaryEntryAsyncTask internal constructor(private val task: (entry: FoodDiaryEntry) -> Unit):
         AsyncTask<FoodDiaryEntry, Void, Void>() {
 
         override fun doInBackground(vararg params: FoodDiaryEntry): Void? {
-            mAsyncTaskDao.insertEntry(params[0])
+            task(params[0])
             return null
         }
+    }
+
+    fun insertFoodDiaryEntry(foodDiaryEntry: FoodDiaryEntry) {
+        FoodDiaryEntryAsyncTask { foodDiaryEntryDao.insertEntry(it) }.execute(foodDiaryEntry)
     }
 
     fun updateFoodDiaryEntry(foodDiaryEntry: FoodDiaryEntry) {
-        UpdateAsyncTask(foodDiaryEntryDao).execute(foodDiaryEntry)
+        FoodDiaryEntryAsyncTask { foodDiaryEntryDao.updateEntry(it) }.execute(foodDiaryEntry)
     }
 
-    // Awkward, but for now I'll keep the pattern. If I have a third one I'll consider simplification.
-    private class UpdateAsyncTask internal constructor(private val mAsyncTaskDao: FoodDiaryEntryDao) :
-        AsyncTask<FoodDiaryEntry, Void, Void>() {
-
-        override fun doInBackground(vararg params: FoodDiaryEntry): Void? {
-            mAsyncTaskDao.updateEntry(params[0])
-            return null
-        }
+    fun deleteFoodDiaryEntry(foodDiaryEntry: FoodDiaryEntry) {
+        FoodDiaryEntryAsyncTask { foodDiaryEntryDao.deleteEntry(it.id) }.execute(foodDiaryEntry)
     }
 }

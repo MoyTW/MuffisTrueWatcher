@@ -16,9 +16,9 @@ import java.time.format.DateTimeFormatter
 
 class FoodDiaryEntryListAdapter(
     context: Context,
-    private val onEditClickListener: (it: FoodDiaryEntry) -> Unit,
+    private val onEditClickListener: (entry: FoodDiaryEntry) -> Unit,
     private val onCopyClickListener: View.OnClickListener,
-    private val onDeleteClickListener: View.OnClickListener
+    private val onDeleteClickListener: (entry: FoodDiaryEntry) -> Unit
 ) : RecyclerView.Adapter<FoodDiaryEntryListAdapter.FoodDiaryEntryHolder>() {
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
@@ -52,7 +52,7 @@ class FoodDiaryEntryListAdapter(
             // Set the onClick listeners
             holder.layoutView.setOnClickListener{ onEditClickListener(current) }
             holder.copyButton.setOnClickListener(onCopyClickListener)
-            holder.deleteButton.setOnClickListener(onDeleteClickListener)
+            holder.deleteButton.setOnClickListener{ onDeleteClickListener(current) }
         } else {
             // Covers the case of data not being ready yet.
             holder.nameView.text = "No Entries Yet"

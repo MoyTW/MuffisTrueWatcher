@@ -30,4 +30,8 @@ class FoodDiaryEntryViewModel(private val localRepository: LocalRepository): Vie
     fun update(entry: FoodDiaryEntry) {
         localRepository.updateFoodDiaryEntry(entry)
     }
+
+    fun delete(entry: FoodDiaryEntry) {
+        localRepository.deleteFoodDiaryEntry(entry)
+    }
 }
