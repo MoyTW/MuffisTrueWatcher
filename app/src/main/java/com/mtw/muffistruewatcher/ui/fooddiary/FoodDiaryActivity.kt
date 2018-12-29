@@ -38,7 +38,7 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setContentView(R.layout.activity_food_diary)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { _ ->
+        button_food_diary_add_entry.setOnClickListener { _ ->
             val intent = Intent(this, FoodDiaryAddEntryActivity::class.java)
             startActivityForResult(intent, FOOD_DIARY_ADD_ENTRY_REQUEST_CODE)
         }
