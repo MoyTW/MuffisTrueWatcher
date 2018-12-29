@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtw.muffistruewatcher.HandInjection
 import com.mtw.muffistruewatcher.R
+import com.mtw.muffistruewatcher.persistence.FoodDiaryEntry
 import com.mtw.muffistruewatcher.ui.ViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_food_diary.*
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.content_food_diary.*
 class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val FOOD_DIARY_ADD_ENTRY_REQUEST_CODE = 1
+    private val FOOD_DIARY_EDIT_ENTRY_REQUEST_CODE = 2
 
     private lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: FoodDiaryEntryViewModel
@@ -57,7 +59,11 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = FoodDiaryEntryListAdapter(
             this,
-            View.OnClickListener { System.out.println("ON EDIT CLICK") },
+            {
+                val intent = Intent(this, FoodDiaryAddEntryActivity::class.java)
+                intent.putExtra(EXTRA_DIARY_ENTRY, it)
+                startActivityForResult(intent, FOOD_DIARY_EDIT_ENTRY_REQUEST_CODE)
+            },
             View.OnClickListener { System.out.println("ON COPY CLICK") },
             View.OnClickListener { System.out.println("ON DELETE CLICK") })
         recyclerView.adapter = adapter
@@ -99,9 +105,9 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == FOOD_DIARY_ADD_ENTRY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            viewModel.insert(data!!.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_NAME),
-                data.getStringExtra(FoodDiaryAddEntryActivity.EXTRA_COMMENTARY),
-                data.getIntExtra(FoodDiaryAddEntryActivity.EXTRA_POINTS, 9999))
+            viewModel.insert(data!!.getSerializableExtra(FoodDiaryAddEntryActivity.EXTRA_ENTRY) as FoodDiaryEntry)
+        } else if (requestCode == FOOD_DIARY_EDIT_ENTRY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            viewModel.update(data!!.getSerializableExtra(FoodDiaryAddEntryActivity.EXTRA_ENTRY) as FoodDiaryEntry)
         }
     }
 
@@ -129,5 +135,6 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     companion object {
         private val TAG = FoodDiaryActivity::class.java.simpleName
+        val EXTRA_DIARY_ENTRY = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryActivity.ENTRY"
     }
 }

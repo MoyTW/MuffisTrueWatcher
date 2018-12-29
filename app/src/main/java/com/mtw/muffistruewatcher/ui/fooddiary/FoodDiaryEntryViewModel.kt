@@ -23,6 +23,10 @@ class FoodDiaryEntryViewModel(private val localRepository: LocalRepository): Vie
         )
     }
 
+    fun insert(foodDiaryEntry: FoodDiaryEntry) {
+        localRepository.insertFoodDiaryEntry(foodDiaryEntry)
+    }
+
     fun update(entry: FoodDiaryEntry) {
         localRepository.updateFoodDiaryEntry(entry)
     }

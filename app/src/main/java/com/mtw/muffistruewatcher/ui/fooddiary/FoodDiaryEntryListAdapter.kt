@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter
 
 class FoodDiaryEntryListAdapter(
     context: Context,
-    private val onEditClickListener: View.OnClickListener,
+    private val onEditClickListener: (it: FoodDiaryEntry) -> Unit,
     private val onCopyClickListener: View.OnClickListener,
     private val onDeleteClickListener: View.OnClickListener
 ) : RecyclerView.Adapter<FoodDiaryEntryListAdapter.FoodDiaryEntryHolder>() {
@@ -26,28 +26,33 @@ class FoodDiaryEntryListAdapter(
     private var foodDiaryEntries: List<FoodDiaryEntry>? = null
 
     inner class FoodDiaryEntryHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        internal val layoutView: ConstraintLayout = itemView.findViewById(R.id.layout_rv_itm_fd_details)
         internal val nameView: TextView = itemView.findViewById(R.id.label_rv_itm_fd_name)
         internal val pointsView: TextView = itemView.findViewById(R.id.label_rv_itm_fd_points)
         internal val dateView: TextView = itemView.findViewById(R.id.label_rv_itm_fd_date)
         internal val commentaryLabel: TextView = itemView.findViewById(R.id.label_rv_itm_fd_commentary)
+        internal val copyButton: ImageButton = itemView.findViewById(R.id.button_rv_itm_fd_copy)
+        internal val deleteButton: ImageButton = itemView.findViewById(R.id.button_rv_itm_fd_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodDiaryEntryHolder {
         val itemView = inflater.inflate(R.layout.recycler_view_item_food_diary, parent, false)
-
-        itemView.findViewById<ConstraintLayout>(R.id.layout_rv_itm_fd_details).setOnClickListener(onEditClickListener)
-        itemView.findViewById<ImageButton>(R.id.button_rv_itm_fd_copy).setOnClickListener(onCopyClickListener)
-        itemView.findViewById<ImageButton>(R.id.button_rv_itm_fd_delete).setOnClickListener(onDeleteClickListener)
         return FoodDiaryEntryHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: FoodDiaryEntryHolder, position: Int) {
         if (foodDiaryEntries != null) {
+            // Set the data
             val current = foodDiaryEntries!![position]
             holder.nameView.text = current.name
             holder.pointsView.text = current.points.toString()
             holder.dateView.text = current.eatenDate.format(dateTimeFormatter)
             holder.commentaryLabel.text = current.commentary
+
+            // Set the onClick listeners
+            holder.layoutView.setOnClickListener{ onEditClickListener(current) }
+            holder.copyButton.setOnClickListener(onCopyClickListener)
+            holder.deleteButton.setOnClickListener(onDeleteClickListener)
         } else {
             // Covers the case of data not being ready yet.
             holder.nameView.text = "No Entries Yet"

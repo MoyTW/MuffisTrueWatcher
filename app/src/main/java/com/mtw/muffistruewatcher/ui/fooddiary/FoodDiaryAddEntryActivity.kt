@@ -8,6 +8,8 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import com.mtw.muffistruewatcher.R
+import com.mtw.muffistruewatcher.persistence.FoodDiaryEntry
+import java.time.LocalDateTime
 
 class FoodDiaryAddEntryActivity : AppCompatActivity() {
 
@@ -22,15 +24,32 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
         editCommentaryView = findViewById(R.id.text_food_diary_add_entry_commentary)
         editPointsView = findViewById(R.id.text_food_diary_add_entry_points)
 
+        // If the intent isn't null,
+        val entry: FoodDiaryEntry? = intent.getSerializableExtra(FoodDiaryActivity.EXTRA_DIARY_ENTRY) as FoodDiaryEntry?
+        entry?.let {
+            editEntryView?.setText(it.name)
+            editCommentaryView?.setText(it.commentary)
+            editPointsView?.setText(it.points.toString())
+        }
+
+        // Set the button listener
         val button = findViewById<Button>(R.id.food_diary_add_entry_save)
         button.setOnClickListener {
             val replyIntent = Intent()
             if (TextUtils.isEmpty(editEntryView!!.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                replyIntent.putExtra(EXTRA_NAME, editEntryView!!.text.toString())
-                replyIntent.putExtra(EXTRA_COMMENTARY, editCommentaryView!!.text.toString())
-                replyIntent.putExtra(EXTRA_POINTS, Integer.parseInt(editPointsView!!.text.toString()))
+                val returnEntry = entry?.copy(
+                    name = editEntryView!!.text.toString(),
+                    commentary = editCommentaryView!!.text.toString(),
+                    points = Integer.parseInt(editPointsView!!.text.toString())
+                ) ?: FoodDiaryEntry(
+                    name = editEntryView!!.text.toString(),
+                    commentary = editCommentaryView!!.text.toString(),
+                    points = Integer.parseInt(editPointsView!!.text.toString()),
+                    eatenDate = LocalDateTime.now()
+                )
+                replyIntent.putExtra(EXTRA_ENTRY, returnEntry)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -38,8 +57,6 @@ class FoodDiaryAddEntryActivity : AppCompatActivity() {
     }
 
     companion object {
-        val EXTRA_NAME = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.NAME"
-        val EXTRA_COMMENTARY = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.COMMENTARY"
-        val EXTRA_POINTS = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.POINTS"
+        val EXTRA_ENTRY = "com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryAddEntryActivity.ENTRY"
     }
 }
