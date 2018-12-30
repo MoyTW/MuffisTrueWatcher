@@ -130,7 +130,10 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         if (requestCode == FOOD_DIARY_ADD_ENTRY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             viewModel.insert(data!!.getSerializableExtra(FoodDiaryAddEntryActivity.EXTRA_ENTRY) as FoodDiaryEntry)
         } else if (requestCode == FOOD_DIARY_EDIT_ENTRY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            viewModel.update(data!!.getSerializableExtra(FoodDiaryAddEntryActivity.EXTRA_ENTRY) as FoodDiaryEntry)
+            // TODO: Systemize the updatedDate?
+            val entry = (data!!.getSerializableExtra(FoodDiaryAddEntryActivity.EXTRA_ENTRY) as FoodDiaryEntry)
+                .copy(updatedDate = LocalDateTime.now())
+            viewModel.update(entry)
         }
     }
 
