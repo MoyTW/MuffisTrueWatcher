@@ -62,14 +62,14 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         // This is awkward to just all splat here, frankly.
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = FoodDiaryEntryListAdapter(
+        recyclerView.adapter = FoodDiaryEntryListAdapter(
             this,
-            {
+            onEditClickListener = {
                 val intent = Intent(this, FoodDiaryAddEntryActivity::class.java)
                 intent.putExtra(EXTRA_DIARY_ENTRY, it)
                 startActivityForResult(intent, FOOD_DIARY_EDIT_ENTRY_REQUEST_CODE)
             },
-            {
+            onCopyClickListener = {
                 val now = LocalDateTime.now()
                 viewModel.insert(
                     it.copy(
@@ -80,7 +80,7 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     )
                 )
             },
-            {
+            onDeleteClickListener = {
                 AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Really delete this entry?")
@@ -90,7 +90,6 @@ class FoodDiaryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     .create()
                     .show()
             })
-        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
 
         viewModelFactory = HandInjection.provideViewModelFactory(this)
