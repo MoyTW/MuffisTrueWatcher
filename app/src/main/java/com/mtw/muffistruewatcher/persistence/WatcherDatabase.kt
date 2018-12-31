@@ -52,7 +52,6 @@ abstract class WatcherDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext, WatcherDatabase::class.java, "WatcherDatabase.db")
-                //.fallbackToDestructiveMigration() // Uncomment only when intentionally wiping DB!
                 .build()
     }
 
