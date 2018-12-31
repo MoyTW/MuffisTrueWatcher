@@ -9,6 +9,10 @@
                 android:icon="@drawable/ic_menu_camera"
                 android:title="@string/menu_food_diary"/>
         <item
+            android:id="@+id/nav_todo"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/menu_todo_list"/>
+        <item
                 android:id="@+id/nav_checklist_builder"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/menu_checklist_builder"/>
