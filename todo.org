@@ -1,0 +1,44 @@
+* Scheduler which:
+
++ Can track long-term tasks, like "lose 10 pounds" through periodic reminder tasks
++ Can track recurring tasks, like "deep clean every two weeks"
++ Can track one-off tasks/events due at certain times, like:
+  + Do your taxes
+  + Go on a hike
+  + Return your library book
++ Can recognize that if you miss an event:
+  + You can just skip it (like if you miss cleaning your room, it's fine)
+  + You can't just skip it (like if you miss returning your books)
+
+* Tasks need to know:
+
++ Effort Points/Time
++ "I will do this on this date" date
++ "I must do this by this date" date
++ "If I miss this task, do I need to still pay attention to it?" boolean
+
+* How do we want to handle long-term/recurring tasks?
+
+We could have two distinct "types" of tasks:
++ Single Task
++ Recurring Task
+  + Creates "Single Task" items on a schedule
+  + Can have an end date, but can also be infinite
+
+* The UI
+Needs to communicate:
++ What to do today
++ Any alerts
+
+^ Overdue Tasks [x/y]
+  [ ] Overdue One
+^ Things To Do Today [n/m]
+  [ ] Today Thing One
+  [ ] Today Thing Two
+^ Unassigned Tasks [t]
+  Task One
+  Task Two
+
+CREATE TASK BUTTON
+
+We will of course want a calendar view at some point so we can look at the history of tasks.
