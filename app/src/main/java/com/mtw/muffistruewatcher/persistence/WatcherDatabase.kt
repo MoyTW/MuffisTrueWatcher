@@ -3,10 +3,14 @@ package com.mtw.muffistruewatcher.persistence
 import android.content.Context
 import androidx.room.*
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class Converters {
+    private val isoDateFormatter: DateTimeFormatter = DateTimeFormatter.ISO_DATE
+
     @TypeConverter
     fun localDateTimeFromTimestamp(epochTime: Long?): LocalDateTime? {
         return epochTime?.let { LocalDateTime.ofInstant(Instant.ofEpochSecond(epochTime), ZoneId.systemDefault()) }
@@ -15,6 +19,16 @@ class Converters {
     @TypeConverter
     fun localDateTimeToTimestamp(localDateTime: LocalDateTime?): Long? {
         return localDateTime?.atZone(ZoneId.systemDefault())?.toEpochSecond()
+    }
+
+    @TypeConverter
+    fun localDateFromString(stringDate: String?): LocalDate? {
+        return stringDate?.let { LocalDate.parse(stringDate, isoDateFormatter) }
+    }
+
+    @TypeConverter
+    fun localDateToString(localDate: LocalDate?): String? {
+        return localDate?.let { localDate.format(isoDateFormatter) }
     }
 }
 
