@@ -12,4 +12,6 @@
     <string name="menu_checklist_builder">Checklist Builder</string>
     <string name="text_name_food_diary_add_entry">Name</string>
     <string name="add_entry">Add Entry</string>
+    <string name="title_activity_todo">TodoActivity</string>
+    <string name="menu_todo_list">TODO List</string>
 </resources>

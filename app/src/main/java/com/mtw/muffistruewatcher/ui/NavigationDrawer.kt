@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import android.view.MenuItem
 import com.mtw.muffistruewatcher.R
 import com.mtw.muffistruewatcher.ui.fooddiary.FoodDiaryActivity
+import com.mtw.muffistruewatcher.ui.todo.TodoActivity
 
 fun onNavigationItemSelected(packageContext: Context, drawerLayout: DrawerLayout, item: MenuItem): Boolean {
     // Handle navigation view item clicks here.
@@ -20,7 +21,11 @@ fun onNavigationItemSelected(packageContext: Context, drawerLayout: DrawerLayout
             val intent = Intent(packageContext, ChecklistBuilder::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             packageContext.startActivity(intent)
-
+        }
+        R.id.nav_todo -> {
+            val intent = Intent(packageContext, TodoActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            packageContext.startActivity(intent)
         }
         R.id.nav_send -> {
 
