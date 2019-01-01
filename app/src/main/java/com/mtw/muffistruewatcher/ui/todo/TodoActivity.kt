@@ -19,10 +19,18 @@ import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.app_bar_todo.*
 
 class TabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    private val pages = listOf<Fragment>(TodoTodayFragment.newInstance("unnecessary", "params"))
+    private val pages = listOf(
+        Pair("Overdue", TodoOverdueFragment.newInstance("a", "b")),
+        Pair("Today", TodoTodayFragment.newInstance("unnecessary", "params")),
+        Pair("Queue", TodoQueueFragment.newInstance("c", "d"))
+    )
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return pages[position].first
+    }
 
     override fun getItem(position: Int): Fragment {
-        return pages[position]
+        return pages[position].second
     }
 
     override fun getCount(): Int {
@@ -30,7 +38,11 @@ class TabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     }
 }
 
-class TodoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TodoTodayFragment.OnFragmentInteractionListener {
+class TodoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    TodoOverdueFragment.OnFragmentInteractionListener, TodoTodayFragment.OnFragmentInteractionListener,
+    TodoQueueFragment.OnFragmentInteractionListener {
+
+    // I assume that I'll need to split this, to handle both? I need to read that "How 2 Fragment" tutorial.
     override fun onFragmentInteraction(uri: Uri) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -60,6 +72,7 @@ class TodoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
 
         viewPager.adapter = TabAdapter(supportFragmentManager)
+        viewPager.currentItem = 1
         tabLayout.setupWithViewPager(viewPager)
     }
 
