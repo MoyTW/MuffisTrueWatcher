@@ -1,5 +1,6 @@
 package com.mtw.muffistruewatcher.ui.todo
 
+import android.net.Uri
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -8,11 +9,31 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.mtw.muffistruewatcher.R
 import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.app_bar_todo.*
 
-class TodoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class TabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    private val pages = listOf<Fragment>(TodoTodayFragment.newInstance("unnecessary", "params"))
+
+    override fun getItem(position: Int): Fragment {
+        return pages[position]
+    }
+
+    override fun getCount(): Int {
+        return pages.size
+    }
+}
+
+class TodoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TodoTodayFragment.OnFragmentInteractionListener {
+    override fun onFragmentInteraction(uri: Uri) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +54,13 @@ class TodoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        // Tabs & Swipes
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+
+        viewPager.adapter = TabAdapter(supportFragmentManager)
+        tabLayout.setupWithViewPager(viewPager)
     }
 
     override fun onBackPressed() {
