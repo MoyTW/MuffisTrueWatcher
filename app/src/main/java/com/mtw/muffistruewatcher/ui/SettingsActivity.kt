@@ -16,6 +16,7 @@ import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.view.MenuItem
+import android.widget.Toast
 import com.mtw.muffistruewatcher.R
 
 /**
@@ -141,6 +142,20 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("sync_frequency"))
+
+            findPreference(getString(R.string.pref_key_backup_database_menu_item)).setOnPreferenceClickListener {
+                Toast.makeText(activity, "You clicked DB backup!", Toast.LENGTH_LONG).show()
+                true
+            }
+            findPreference(getString(R.string.pref_key_view_backups_menu_item)).setOnPreferenceClickListener {
+                Toast.makeText(activity, "You clicked DB backup view!", Toast.LENGTH_LONG).show()
+                true
+            }
+            findPreference(getString(R.string.pref_key_import_database_menu_item)).setOnPreferenceClickListener {
+                Toast.makeText(activity, "You clicked DB import!", Toast.LENGTH_LONG).show()
+                true
+            }
+
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
