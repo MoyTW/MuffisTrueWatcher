@@ -10,7 +10,7 @@
                 android:title="@string/menu_food_diary"/>
         <item
             android:id="@+id/nav_todo"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_format_list_numbered_black_24dp"
             android:title="@string/menu_todo_list"/>
         <item
                 android:id="@+id/nav_checklist_builder"
@@ -18,13 +18,11 @@
                 android:title="@string/menu_checklist_builder"/>
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                    android:id="@+id/nav_send"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="Send"/>
-        </menu>
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/menu_settings">
+
     </item>
 
 </menu>

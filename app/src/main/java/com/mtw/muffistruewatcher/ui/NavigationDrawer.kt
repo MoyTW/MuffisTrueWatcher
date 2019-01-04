@@ -27,8 +27,10 @@ fun onNavigationItemSelected(packageContext: Context, drawerLayout: DrawerLayout
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             packageContext.startActivity(intent)
         }
-        R.id.nav_send -> {
-
+        R.id.nav_settings -> {
+            val intent = Intent(packageContext, SettingsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            packageContext.startActivity(intent)
         }
     }
 
